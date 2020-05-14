@@ -1,0 +1,3 @@
+2020-05-14 17:45:57 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DIRECCION[*]"; expected "DELETE, DROP, DECLARE, DEALLOCATE"; SQL statement:
+DIRECCION [42001-200]
