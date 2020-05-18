@@ -13,13 +13,9 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "direccion", uniqueConstraints = {@UniqueConstraint(columnNames = {"calle", "persona_id", "numero"})})
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@RequiredArgsConstructor
 public class Direccion {
 
     @Id
@@ -27,14 +23,17 @@ public class Direccion {
     private Long id;
 
     @NotNull
+    @NonNull
     @NotEmpty
     private String calle;
 
     @NotNull
+    @NonNull
     @NotEmpty
     private String numero;
 
     @JsonBackReference
+    @NonNull
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_id", nullable = false)
     @ToString.Exclude

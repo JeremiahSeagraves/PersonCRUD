@@ -24,19 +24,19 @@ public class LoadDB {
     @Bean
     CommandLineRunner initDatabase(PersonaRepository personaRepository, DireccionRepository direccionRepository) {
         return args -> {
-            Persona persona1 = Persona.builder().nombre("Juanito").apellido("Pérez").edad(25).tipoSangre("O+").build();
+            Persona persona1 = new Persona("Juanito", "Pérez", 25, "O+");
             personaRepository.save(persona1);
 
-            Set<Direccion> direcciones1 = new HashSet<>(Arrays.asList(Direccion.builder().calle("A").numero("32").persona(persona1).build(),
-                    Direccion.builder().calle("B").numero("33").persona(persona1).build()));
+            Set<Direccion> direcciones1 = new HashSet<>(Arrays.asList(new Direccion("A", "32", persona1),
+                    new Direccion("B", "33", persona1)));
             direccionRepository.saveAll(direcciones1);
             log.info("Cargando " + persona1);
 
 
-            Persona persona2 = Persona.builder().nombre("María").apellido("Ortega").edad(32).tipoSangre("O-").build();
+            Persona persona2 = new Persona("María", "Ortega", 32, "O-");
             personaRepository.save(persona2);
-            Set<Direccion> direcciones2 = new HashSet<>(Arrays.asList(Direccion.builder().calle("C").numero("34").persona(persona2).build(),
-                    Direccion.builder().calle("D").numero("35").persona(persona2).build()));
+            Set<Direccion> direcciones2 = new HashSet<>(Arrays.asList(new Direccion("C", "34", persona2),
+                    new Direccion("D", "35", persona2)));
             direccionRepository.saveAll(direcciones2);
 
             log.info("Cargando " + persona2);

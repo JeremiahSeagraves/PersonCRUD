@@ -15,13 +15,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "persona")
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@NamedEntityGraph(name = "Persona.ConDirecciones", attributeNodes = @NamedAttributeNode("direcciones"))
+@RequiredArgsConstructor
 public class Persona {
 
     @Id
@@ -29,17 +25,21 @@ public class Persona {
     private Long id;
 
     @NotNull
+    @NonNull
     @NotEmpty
     private String nombre;
 
     @NotNull
+    @NonNull
     @NotEmpty
     private String apellido;
 
     @Min(0)
+    @NonNull
     private int edad;
 
     @NotNull
+    @NonNull
     @NotEmpty
     @Column(name = "tipo_sangre")
     private String tipoSangre;
