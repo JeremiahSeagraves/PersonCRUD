@@ -7,7 +7,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:h2:file:C:/Users/jeremiah.seagraves/Documents/Projects/richlogin/test
+    url: jdbc:h2:mem:testdb
     driver-class-name: org.h2.Driver
     username: root
     password: root

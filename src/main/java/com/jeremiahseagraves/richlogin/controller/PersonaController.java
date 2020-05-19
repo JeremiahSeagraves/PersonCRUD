@@ -4,6 +4,7 @@ import com.jeremiahseagraves.richlogin.domain.Persona;
 import com.jeremiahseagraves.richlogin.service.PersonaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class PersonaController {
     }
 
     @GetMapping("/persona")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CompletableFuture<ResponseEntity> getAll() {
         return personaService.getAll().<ResponseEntity>thenApply(ResponseEntity::ok).exceptionally(handleGetFailure);
     }
@@ -33,17 +35,20 @@ public class PersonaController {
     private static Function<Throwable, ResponseEntity<? extends Persona>> handleSaveOrUpdateFailure = throwable -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
     @PostMapping("/persona")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CompletableFuture<ResponseEntity> save(@RequestBody @Validated Persona persona) {
         return personaService.saveOrUpdate(persona).<ResponseEntity>thenApply(ResponseEntity::ok).exceptionally(handleSaveOrUpdateFailure);
     }
 
     @PutMapping("/persona")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public CompletableFuture<ResponseEntity> update(@RequestBody Persona persona) {
         return personaService.saveOrUpdate(persona).<ResponseEntity>thenApply(ResponseEntity::ok).exceptionally(handleSaveOrUpdateFailure);
     }
 
 
     @DeleteMapping("/persona/{id}")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public ResponseEntity delete(@PathVariable(name = "id") Long id) {
         personaService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
